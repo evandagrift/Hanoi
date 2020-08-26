@@ -63,7 +63,10 @@ namespace Tower_of_Hanoi
             if (start.Count > highestStack) { highestStack = start.Count; }
             if (middle.Count > highestStack) { highestStack = middle.Count; }
             if (final.Count > highestStack) { highestStack = final.Count; }
-           
+            int temp;
+
+            int tempCnt = tempStart.Count + tempFinal.Count + tempMiddle.Count;
+
             //loop going through all the rows that will be printed
             for(int i = highestStack; i > 0; i--)
             {
@@ -72,14 +75,16 @@ namespace Tower_of_Hanoi
                 //since this prints top down it needs to make sure there's a value in that slot
                 if(tempStart.Count >= i)
                 {
-                    for(int j = spacer; j < 0; j--)
+                    temp = tempStart.Pop();
+
+                    for(int j = tempCnt-temp; j < 0; j--)
                     {
                         stringToPrint += " ";
                     }
 
                     stringToPrint += "/";
                     //adds value of plate # of dashes
-                    for(int k = listAllPlates[i]; k > 0; k--)
+                    for(int k = temp; k > 0; k--)
                     {
                         stringToPrint += "-";
                     }
