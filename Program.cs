@@ -38,7 +38,7 @@ namespace Tower_of_Hanoi
             }
 
 
-            MovePlates(startingPillar.Count,startingPillar, finalPillar, middlePillar,startingPillar,finalPillar,middlePillar);
+            MovePlates(startingPillar.Count, startingPillar, finalPillar, middlePillar, startingPillar, finalPillar, middlePillar);
             PlatePrinter(startingPillar, finalPillar, middlePillar);
             Console.WriteLine("the end");
             Console.ReadLine();
@@ -56,26 +56,61 @@ namespace Tower_of_Hanoi
             Console.WriteLine("n = " + n);
             Console.WriteLine();
             Console.WriteLine();
-            Console.ReadLine();
 
             //print plates
             if (n >= 1)
             {
-                MovePlates(n - 1, start, middle, final,s,f,m);
+                MovePlates(n - 1, start, middle, final, s, f, m);
 
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                PlatePrinter(s, f, m);
+                Console.WriteLine();
+
+                Console.ForegroundColor = ConsoleColor.White;
+                PlatePrinter(start, final, middle);
+                Console.WriteLine("n = " + n);
+                Console.WriteLine();
+                Console.WriteLine();
+                
                 final.Push(start.Pop());
 
 
-                MovePlates(n - 1, middle, final, start,s,f,m);
+                Console.ForegroundColor = ConsoleColor.Green;
+                PlatePrinter(s, f, m);
+                Console.WriteLine();
+
+                Console.ForegroundColor = ConsoleColor.White;
+                PlatePrinter(start, final, middle);
+                Console.WriteLine("n = " + n);
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+
+                MovePlates(n - 1, middle, final, start, s, f, m);
+
+
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                PlatePrinter(s, f, m);
+                Console.WriteLine();
+
+                Console.ForegroundColor = ConsoleColor.White;
+                PlatePrinter(start, final, middle);
+                Console.WriteLine("n = " + n);
+                Console.WriteLine();
+                Console.WriteLine();
+
 
             }
         }
 
         static void PlatePrinter(Stack<int> start, Stack<int> final, Stack<int> middle)
         {
-            
+
             Stack<int> tempStart = new Stack<int>(start.Reverse());
-            
+
             Stack<int> tempFinal = new Stack<int>(final.Reverse());
             Stack<int> tempMiddle = new Stack<int>(middle.Reverse());
             //we figure out the highest stack because that's the number of rows
@@ -88,7 +123,7 @@ namespace Tower_of_Hanoi
             int numPlates = tempStart.Count + tempMiddle.Count + tempFinal.Count;
 
             //loop going through all the rows that will be printed
-            for (int i = highestStack; i > 0; i--)
+            for (int i = numPlates; i > 0; i--)
             {
                 string stringToPrint = "";
 
@@ -168,14 +203,14 @@ namespace Tower_of_Hanoi
                     //Console.WriteLine(stringToPrint.Count());
                     stringToPrint += "|";
                     stringToPrint += " ";
-                    for (int l = numPlates ; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //draw a pole
                 }
 
-               // Console.WriteLine("end of block two");
+                // Console.WriteLine("end of block two");
                 //Console.WriteLine(stringToPrint.Count());
 
                 if (tempFinal.Count >= i)
