@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,10 +31,12 @@ namespace Tower_of_Hanoi
             Stack<int> middlePillar = new Stack<int>();
             Stack<int> finalPillar = new Stack<int>();
 
-            for(int i = n; i > 0; i--)
+            for (int i = n; i > 0; i--)
             {
                 startingPillar.Push(i);
+                middlePillar.Push(i);
             }
+
             PlatePrinter(startingPillar, finalPillar, middlePillar);
             Console.ReadLine();
         }
@@ -48,7 +50,7 @@ namespace Tower_of_Hanoi
                 final.Push(start.Pop());
                 Console.WriteLine("plate ");
 
-                MovePlates(n-1, middle, final, start);
+                MovePlates(n - 1, middle, final, start);
             }
         }
 
@@ -65,47 +67,68 @@ namespace Tower_of_Hanoi
             if (final.Count > highestStack) { highestStack = final.Count; }
             int temp;
 
-            int tempCnt = tempStart.Count + tempFinal.Count + tempMiddle.Count;
+            int tempCnt = tempStart.Count;
 
             //loop going through all the rows that will be printed
-            for(int i = highestStack; i > 0; i--)
+            for (int i = highestStack; i > 0; i--)
             {
-                string stringToPrint ="";
+                string stringToPrint = "";
+
+
+                /*
+                 * Mirror this section for all stacks
+                 * 
 
                 //since this prints top down it needs to make sure there's a value in that slot
-                if(tempStart.Count >= i)
+                if (tempStart.Count >= i)
                 {
                     temp = tempStart.Pop();
 
-                    for(int j = tempCnt-temp; j < 0; j--)
+                    for (int j = tempCnt - temp; j > 0; j--)
                     {
                         stringToPrint += " ";
                     }
 
                     stringToPrint += "/";
+
+                    int spaceCounter = 0;
+
                     //adds value of plate # of dashes
-                    for(int k = temp; k > 0; k--)
+                    for (int k = temp; k > 0; k--)
                     {
+                        if (spaceCounter < temp-1) stringToPrint += " ";
+
                         stringToPrint += "-";
                     }
 
                     stringToPrint += "\\";
-                    Console.WriteLine();
-
                 }
                 else
-                { 
+                {
+                    for (int l = (tempCnt / 2) + 2; l > 0; l--)
+                    {
+                        stringToPrint += " ";
+                    }
+                    stringToPrint += "|";
+
+                    for (int m = stringToPrint.Count(); m <= tempCnt + 2; m++)
+                    {
+                        stringToPrint += " ";
+                    }
                     //draw a pole
 
 
                 }
 
-                
+                */
+
+                Console.WriteLine(stringToPrint);
+
             }
-            
+
 
         }
 
-   
+
     }
 }
