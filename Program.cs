@@ -34,49 +34,58 @@ namespace Tower_of_Hanoi
             for (int i = n; i > 0; i--)
             {
                 startingPillar.Push(i);
-                
-            }
-
-            for (int i = 2; i > 0; i--)
-            {
-                middlePillar.Push(i);
 
             }
 
 
+            MovePlates(startingPillar.Count,startingPillar, finalPillar, middlePillar,startingPillar,finalPillar,middlePillar);
             PlatePrinter(startingPillar, finalPillar, middlePillar);
+            Console.WriteLine("the end");
             Console.ReadLine();
         }
 
-        static void MovePlates(int n, Stack<int> start, Stack<int> final, Stack<int> middle)
+        static void MovePlates(int n, Stack<int> start, Stack<int> final, Stack<int> middle, Stack<int> s, Stack<int> f, Stack<int> m)
         {
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            PlatePrinter(s, f, m);
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            PlatePrinter(start, final, middle);
+            Console.WriteLine("n = " + n);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.ReadLine();
+
             //print plates
             if (n >= 1)
             {
-                MovePlates(n - 1, start, middle, final);
+                MovePlates(n - 1, start, middle, final,s,f,m);
+
                 final.Push(start.Pop());
 
-                PlatePrinter(start,middle,final);
-                Console.ReadLine();
 
-                MovePlates(n - 1, middle, final, start);
+                MovePlates(n - 1, middle, final, start,s,f,m);
+
             }
         }
 
         static void PlatePrinter(Stack<int> start, Stack<int> final, Stack<int> middle)
         {
-            Stack<int> tempStart = start;
-            Stack<int> tempFinal = final;
-            Stack<int> tempMiddle = middle;
-
+            
+            Stack<int> tempStart = new Stack<int>(start.Reverse());
+            
+            Stack<int> tempFinal = new Stack<int>(final.Reverse());
+            Stack<int> tempMiddle = new Stack<int>(middle.Reverse());
             //we figure out the highest stack because that's the number of rows
             int highestStack = 0;
             if (start.Count > highestStack) { highestStack = start.Count; }
             if (middle.Count > highestStack) { highestStack = middle.Count; }
             if (final.Count > highestStack) { highestStack = final.Count; }
             int temp;
-            int numPlates = tempStart.Count;
-            //int numPlates = tempStart.Count + tempMiddle.Count + tempFinal.Count;
+            //int numPlates = tempStart.Count;
+            int numPlates = tempStart.Count + tempMiddle.Count + tempFinal.Count;
 
             //loop going through all the rows that will be printed
             for (int i = highestStack; i > 0; i--)
@@ -84,7 +93,7 @@ namespace Tower_of_Hanoi
                 string stringToPrint = "";
 
 
-               //Console.WriteLine(stringToPrint.Count());
+                //Console.WriteLine(stringToPrint.Count());
                 //since this prints top down it needs to make sure there's a value in that slot
                 if (tempStart.Count >= i)
                 {
@@ -103,21 +112,21 @@ namespace Tower_of_Hanoi
                     }
                     stringToPrint += "\\";
 
-                    for (int m = numPlates - temp; m> 0; m--)
+                    for (int m = numPlates - temp; m > 0; m--)
                     {
                         stringToPrint += " ";
                     }
                 }
                 else
                 {
-                    for (int l = (numPlates/2) + 1; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //Console.WriteLine(stringToPrint.Count());
                     stringToPrint += "|";
                     stringToPrint += " ";
-                    for (int l = (numPlates / 2) + 1; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
@@ -125,8 +134,8 @@ namespace Tower_of_Hanoi
                 }
 
 
-                Console.WriteLine("end of block one");
-                Console.WriteLine(stringToPrint.Count());
+                //Console.WriteLine("end of block one");
+                //Console.WriteLine(stringToPrint.Count());
 
                 if (tempMiddle.Count >= i)
                 {
@@ -152,22 +161,22 @@ namespace Tower_of_Hanoi
                 }
                 else
                 {
-                    for (int l = (numPlates / 2) + 1; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //Console.WriteLine(stringToPrint.Count());
                     stringToPrint += "|";
                     stringToPrint += " ";
-                    for (int l = (numPlates / 2) + 1; l > 0; l--)
+                    for (int l = numPlates ; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //draw a pole
                 }
 
-                 Console.WriteLine("end of block two");
-                 Console.WriteLine(stringToPrint.Count());
+               // Console.WriteLine("end of block two");
+                //Console.WriteLine(stringToPrint.Count());
 
                 if (tempFinal.Count >= i)
                 {
@@ -193,21 +202,21 @@ namespace Tower_of_Hanoi
                 }
                 else
                 {
-                    for (int l = (numPlates / 2) + 1; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //Console.WriteLine(stringToPrint.Count());
                     stringToPrint += "|";
                     stringToPrint += " ";
-                    for (int l = (numPlates / 2) + 1; l > 0; l--)
+                    for (int l = numPlates; l > 0; l--)
                     {
                         stringToPrint += " ";
                     }
                     //draw a pole
                 }
-                Console.WriteLine("end of block three");
-                Console.WriteLine(stringToPrint.Count());
+                //Console.WriteLine("end of block three");
+                //Console.WriteLine(stringToPrint.Count());
                 Console.WriteLine(stringToPrint);
 
             }
