@@ -73,8 +73,8 @@ namespace Tower_of_Hanoi
                 Console.WriteLine();
                 Console.WriteLine();
                 
-                final.Push(start.Pop());
 
+                final.Push(start.Pop());
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 PlatePrinter(s, f, m);
@@ -85,7 +85,6 @@ namespace Tower_of_Hanoi
                 Console.WriteLine("n = " + n);
                 Console.WriteLine();
                 Console.WriteLine();
-
 
 
                 MovePlates(n - 1, middle, final, start, s, f, m);
