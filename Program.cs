@@ -14,48 +14,49 @@ namespace Tower_of_Hanoi
             //-1 to check for errors if need be
             int n = -1;
 
-
-            //tries to get an int input of how many plates the player wants to move
-            Console.Write("How many plates would you like to move? ");
-            try
+            while (true)
             {
-                n = Int32.Parse(Console.ReadLine());
+                //tries to get an int input of how many plates the player wants to move
+                Console.Write("How many plates would you like to move? ");
+                try
+                {
+                    n = Int32.Parse(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("inproper input, defaulting at 4 plates");
+                    n = 4;
+                }
+                Stack<int> startingPillar = new Stack<int>();
+                Stack<int> middlePillar = new Stack<int>();
+                Stack<int> finalPillar = new Stack<int>();
+
+                for (int i = n; i > 0; i--)
+                {
+                    startingPillar.Push(i);
+
+                }
+
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                PlatePrinter(startingPillar, finalPillar, middlePillar);
+                Console.ForegroundColor = ConsoleColor.Green;
+                PlatePrinter(startingPillar, finalPillar, middlePillar);
+                Console.WriteLine();
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+                MovePlates(startingPillar.Count, startingPillar, finalPillar, middlePillar, startingPillar, finalPillar, middlePillar);
+                PlatePrinter(startingPillar, finalPillar, middlePillar);
             }
-            catch
-            {
-                Console.WriteLine("inproper input, defaulting at 4 plates");
-                n = 4;
-            }
-
-            Stack<int> startingPillar = new Stack<int>();
-            Stack<int> middlePillar = new Stack<int>();
-            Stack<int> finalPillar = new Stack<int>();
-
-            for (int i = n; i > 0; i--)
-            {
-                startingPillar.Push(i);
-
-            }
-
-
-            MovePlates(startingPillar.Count, startingPillar, finalPillar, middlePillar, startingPillar, finalPillar, middlePillar);
-            PlatePrinter(startingPillar, finalPillar, middlePillar);
             Console.WriteLine("the end");
             Console.ReadLine();
         }
 
         static void MovePlates(int n, Stack<int> start, Stack<int> final, Stack<int> middle, Stack<int> s, Stack<int> f, Stack<int> m)
         {
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            PlatePrinter(s, f, m);
-            Console.WriteLine();
-
-            Console.ForegroundColor = ConsoleColor.White;
-            PlatePrinter(start, final, middle);
-            Console.WriteLine("n = " + n);
-            Console.WriteLine();
-            Console.WriteLine();
 
             //print plates
             if (n >= 1)
@@ -65,41 +66,37 @@ namespace Tower_of_Hanoi
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 PlatePrinter(s, f, m);
-                Console.WriteLine();
+
 
                 Console.ForegroundColor = ConsoleColor.White;
-                PlatePrinter(start, final, middle);
-                Console.WriteLine("n = " + n);
-                Console.WriteLine();
-                Console.WriteLine();
-                
+                PlatePrinter(start,final, middle);
+
+                if (start.Count>0)
+                { Console.Write(start.Peek()); }
+                else { Console.Write("S"); }
+                Console.Write(", ");
+
+                if (final.Count > 0)
+                { Console.Write(final.Peek()); }
+                else { Console.Write("F"); }
+                Console.Write(", ");
+
+                if (middle.Count > 0)
+                { Console.Write(middle.Peek()); }
+                else { Console.Write("M"); }
+
+                Console.WriteLine("    N=" + n);
+
+                Console.ReadLine();
 
                 final.Push(start.Pop());
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                PlatePrinter(s, f, m);
-                Console.WriteLine();
-
-                Console.ForegroundColor = ConsoleColor.White;
-                PlatePrinter(start, final, middle);
-                Console.WriteLine("n = " + n);
-                Console.WriteLine();
-                Console.WriteLine();
 
 
                 MovePlates(n - 1, middle, final, start, s, f, m);
 
 
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                PlatePrinter(s, f, m);
-                Console.WriteLine();
-
-                Console.ForegroundColor = ConsoleColor.White;
-                PlatePrinter(start, final, middle);
-                Console.WriteLine("n = " + n);
-                Console.WriteLine();
-                Console.WriteLine();
 
 
             }
